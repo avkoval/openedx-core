@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
             model_name='publishableentity',
             name='entity_ref',
             field=openedx_django_lib.fields.MultiCollationCharField(
-                db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'},
+                db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'},
                 max_length=500,
             ),
         ),
@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
             model_name='learningpackage',
             name='package_ref',
             field=openedx_django_lib.fields.MultiCollationCharField(
-                db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'},
+                db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'},
                 max_length=500,
             ),
         ),

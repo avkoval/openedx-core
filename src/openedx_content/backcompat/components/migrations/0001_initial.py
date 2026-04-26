@@ -15,6 +15,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('oel_contents', '0001_initial'),
         ('oel_publishing', '0001_initial'),
+        ("openedx_django_lib", "0001_create_pg_collation"),
     ]
 
     operations = [
@@ -22,7 +23,7 @@ class Migration(migrations.Migration):
             name='Component',
             fields=[
                 ('publishable_entity', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to='oel_publishing.publishableentity')),
-                ('local_key', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'}, max_length=500)),
+                ('local_key', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'}, max_length=500)),
             ],
             options={
                 'verbose_name': 'Component',
@@ -33,8 +34,8 @@ class Migration(migrations.Migration):
             name='ComponentType',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('namespace', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'}, max_length=100)),
-                ('name', openedx_django_lib.fields.MultiCollationCharField(blank=True, db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'}, max_length=100)),
+                ('namespace', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'}, max_length=100)),
+                ('name', openedx_django_lib.fields.MultiCollationCharField(blank=True, db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'}, max_length=100)),
             ],
         ),
         migrations.CreateModel(
@@ -53,7 +54,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, unique=True, verbose_name='UUID')),
-                ('key', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'}, max_length=500)),
+                ('key', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'}, max_length=500)),
                 ('learner_downloadable', models.BooleanField(default=False)),
                 ('component_version', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='oel_components.componentversion')),
                 ('content', models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, to='oel_contents.content')),

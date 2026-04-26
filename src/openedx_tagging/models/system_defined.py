@@ -18,6 +18,26 @@ from .base import Tag, Taxonomy
 log = logging.getLogger(__name__)
 
 
+def _exact_lookup(model: type[models.Model], field_name: str) -> str:
+    """
+    Return ``"iexact"`` if the named field stores text, otherwise ``"exact"``.
+
+    ``__iexact`` is translated by Django to ``UPPER(col) = UPPER(value)`` on
+    PostgreSQL, which fails for non-text columns (e.g. ``UUIDField``,
+    ``IntegerField``) because PostgreSQL has no ``upper(uuid)`` /
+    ``upper(integer)``. MySQL silently coerces and SQLite is more permissive,
+    which hides the issue on those backends. Case is meaningless for UUIDs and
+    integers anyway, so plain ``__exact`` is semantically equivalent there.
+    """
+    if field_name == "pk":
+        field = model._meta.pk
+    else:
+        field = model._meta.get_field(field_name)
+    if isinstance(field, (models.CharField, models.TextField)):
+        return "iexact"
+    return "exact"
+
+
 class SystemDefinedTaxonomy(Taxonomy):
     """
     Simple subclass of Taxonomy which requires the system_defined flag to be set.
@@ -89,9 +109,10 @@ class ModelSystemDefinedTaxonomy(SystemDefinedTaxonomy):
         Check if 'value' is part of this Taxonomy, based on the specified model.
         """
         try:
+            value_lookup = _exact_lookup(self.tag_class_model, self.tag_class_value_field)
             # See https://github.com/typeddjango/django-stubs/issues/1684 for why we need to ignore this.
             self.tag_class_model.objects.get(  # type: ignore[attr-defined]
-                **{f"{self.tag_class_value_field}__iexact": value}
+                **{f"{self.tag_class_value_field}__{value_lookup}": value}
             )
             return True
         except ObjectDoesNotExist:
@@ -106,8 +127,9 @@ class ModelSystemDefinedTaxonomy(SystemDefinedTaxonomy):
             # First we look up the instance by value.
             # We specify 'iexact' but whether it's case sensitive or not on MySQL depends on the model's collation.
             # See https://github.com/typeddjango/django-stubs/issues/1684 for why we need to ignore this.
+            value_lookup = _exact_lookup(self.tag_class_model, self.tag_class_value_field)
             instance = self.tag_class_model.objects.get(  # type: ignore[attr-defined]
-                **{f"{self.tag_class_value_field}__iexact": value}
+                **{f"{self.tag_class_value_field}__{value_lookup}": value}
             )
         except ObjectDoesNotExist as exc:
             raise Tag.DoesNotExist from exc
@@ -131,9 +153,10 @@ class ModelSystemDefinedTaxonomy(SystemDefinedTaxonomy):
         Check if 'external_id' is part of this Taxonomy.
         """
         try:
+            key_lookup = _exact_lookup(self.tag_class_model, self.tag_class_key_field)
             # See https://github.com/typeddjango/django-stubs/issues/1684 for why we need to ignore this.
             self.tag_class_model.objects.get(  # type: ignore[attr-defined]
-                **{f"{self.tag_class_key_field}__iexact": external_id}
+                **{f"{self.tag_class_key_field}__{key_lookup}": external_id}
             )
             return True
         except ObjectDoesNotExist:
@@ -151,8 +174,9 @@ class ModelSystemDefinedTaxonomy(SystemDefinedTaxonomy):
             # First we look up the instance by external_id
             # We specify 'iexact' but whether it's case sensitive or not on MySQL depends on the model's collation.
             # See https://github.com/typeddjango/django-stubs/issues/1684 for why we need to ignore this.
+            key_lookup = _exact_lookup(self.tag_class_model, self.tag_class_key_field)
             instance = self.tag_class_model.objects.get(  # type: ignore[attr-defined]
-                **{f"{self.tag_class_key_field}__iexact": external_id}
+                **{f"{self.tag_class_key_field}__{key_lookup}": external_id}
             )
         except ObjectDoesNotExist as exc:
             raise Tag.DoesNotExist from exc

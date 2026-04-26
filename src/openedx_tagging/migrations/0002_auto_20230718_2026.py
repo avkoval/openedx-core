@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
             model_name="objecttag",
             name="object_id",
             field=openedx_django_lib.fields.MultiCollationCharField(
-                db_collations={"mysql": "utf8mb4_unicode_ci", "sqlite": "NOCASE"},
+                db_collations={"mysql": "utf8mb4_unicode_ci", "postgresql": "ci_collation", "sqlite": "NOCASE"},
                 editable=False,
                 help_text="Identifier for the object being tagged",
                 max_length=255,

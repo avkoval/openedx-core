@@ -33,17 +33,17 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='collection',
             name='collection_code',
-            field=openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'}, max_length=255, validators=[django.core.validators.RegexValidator(re.compile('^[a-zA-Z0-9_.-]+\\Z'), 'Enter a valid "code name" consisting of latin letters (A-Z, a-z), numbers, underscores, hyphens, or periods.', 'invalid')]),
+            field=openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'}, max_length=255, validators=[django.core.validators.RegexValidator(re.compile('^[a-zA-Z0-9_.-]+\\Z'), 'Enter a valid "code name" consisting of latin letters (A-Z, a-z), numbers, underscores, hyphens, or periods.', 'invalid')]),
         ),
         migrations.AlterField(
             model_name='component',
             name='component_code',
-            field=openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'}, max_length=255, validators=[django.core.validators.RegexValidator(re.compile('^[\\w.-]+\\Z'), 'Enter a valid "code name" consisting of any letters, numbers, underscores, hyphens, or periods.', 'invalid')]),
+            field=openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'}, max_length=255, validators=[django.core.validators.RegexValidator(re.compile('^[\\w.-]+\\Z'), 'Enter a valid "code name" consisting of any letters, numbers, underscores, hyphens, or periods.', 'invalid')]),
         ),
         migrations.AlterField(
             model_name='container',
             name='container_code',
-            field=openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'}, max_length=255, validators=[django.core.validators.RegexValidator(re.compile('^[\\w.-]+\\Z'), 'Enter a valid "code name" consisting of any letters, numbers, underscores, hyphens, or periods.', 'invalid')]),
+            field=openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'}, max_length=255, validators=[django.core.validators.RegexValidator(re.compile('^[\\w.-]+\\Z'), 'Enter a valid "code name" consisting of any letters, numbers, underscores, hyphens, or periods.', 'invalid')]),
         ),
         migrations.AddConstraint(
             model_name='component',

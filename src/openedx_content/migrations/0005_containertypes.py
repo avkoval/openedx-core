@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
                 (
                     "type_code",
                     openedx_django_lib.fields.MultiCollationCharField(
-                        db_collations={"mysql": "utf8mb4_bin", "sqlite": "BINARY"}, max_length=100, unique=True
+                        db_collations={"mysql": "utf8mb4_bin", "postgresql": "cs_collation", "sqlite": "BINARY"}, max_length=100, unique=True
                     ),
                 ),
             ],

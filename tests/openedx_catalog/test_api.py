@@ -245,8 +245,13 @@ def test_create_course_run_for_modulestore_course_with_existing_org():
     assert run.course_key == course_key
 
 
-# FIXME: this test passes on MySQL but not SQLite. We need to update the Organizations code to behave consistently.
-@pytest.mark.skipif(connection.vendor == "sqlite", reason="Only passes on MySQL")
+# FIXME: this test only passes on MySQL because Organization.short_name is a plain CharField
+# (from the upstream `organizations` package), so the case-insensitive lookup that drives this
+# test relies on MySQL's default case-insensitive collation. SQLite and PostgreSQL both use
+# case-sensitive defaults for plain CharField, so the existing 'nEWoRG' row is not found when
+# queried with 'NewOrg', and no warning is emitted. We need to update the Organizations code
+# to behave consistently across backends.
+@pytest.mark.skipif(connection.vendor != "mysql", reason="Only passes on MySQL")
 def test_create_course_run_for_modulestore_course_with_existing_org_different_capitalization(
     caplog: pytest.LogCaptureFixture,
 ):

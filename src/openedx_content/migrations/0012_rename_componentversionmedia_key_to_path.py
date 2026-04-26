@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
             model_name='componentversionmedia',
             name='path',
             field=openedx_django_lib.fields.MultiCollationCharField(
-                db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'},
+                db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'},
                 max_length=500,
             ),
         ),

@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='objecttag',
             name='object_id',
-            field=openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'}, db_index=True, editable=False, help_text='Identifier for the object being tagged', max_length=255),
+            field=openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'}, db_index=True, editable=False, help_text='Identifier for the object being tagged', max_length=255),
         ),
     ]

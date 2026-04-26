@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
             model_name='collection',
             name='key',
             field=openedx_django_lib.fields.MultiCollationCharField(
-                db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'},
+                db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'},
                 db_column='_key', max_length=500, null=True, blank=True),
             preserve_default=False,
         ),
@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
             model_name='collection',
             name='key',
             field=openedx_django_lib.fields.MultiCollationCharField(
-                db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'},
+                db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'},
                 db_column='_key', max_length=500, null=False, blank=False),
             preserve_default=False,
         ),

@@ -107,7 +107,7 @@ class Migration(migrations.Migration):
             model_name="tag",
             name="lineage",
             field=openedx_django_lib.fields.MultiCollationCharField(
-                db_collations={"mysql": "utf8mb4_unicode_ci", "sqlite": "NOCASE"},
+                db_collations={"mysql": "utf8mb4_unicode_ci", "postgresql": "ci_collation", "sqlite": "NOCASE"},
                 default="",
                 help_text="Tab-separated ancestor path including this tag: 'Root\\tParent\\t...\\tThisValue\\t'. Used for depth-first tree ordering and descendant prefix matching. Set automatically by save(); do not set manually.",
                 max_length=3006,

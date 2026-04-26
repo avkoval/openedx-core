@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='objecttag',
             name='_export_id',
-            field=openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_unicode_ci', 'sqlite': 'NOCASE'}, help_text='User-facing label used for this tag, stored in case taxonomy is (or becomes) null. If the taxonomy field is set, then taxonomy.export_id takes precedence over this field.', max_length=255),
+            field=openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_unicode_ci', 'postgresql': 'ci_collation', 'sqlite': 'NOCASE'}, help_text='User-facing label used for this tag, stored in case taxonomy is (or becomes) null. If the taxonomy field is set, then taxonomy.export_id takes precedence over this field.', max_length=255),
         ),
         migrations.RunPython(migrate_language_export_id, reverse_language_export_id),
     ]

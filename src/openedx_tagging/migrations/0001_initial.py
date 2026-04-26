@@ -21,6 +21,7 @@ class Migration(migrations.Migration):
                     openedx_django_lib.fields.MultiCollationCharField(
                         db_collations={
                             "mysql": "utf8mb4_unicode_ci",
+                            "postgresql": "ci_collation",
                             "sqlite": "NOCASE",
                         },
                         db_index=True,
@@ -78,6 +79,7 @@ class Migration(migrations.Migration):
                     openedx_django_lib.fields.MultiCollationCharField(
                         db_collations={
                             "mysql": "utf8mb4_unicode_ci",
+                            "postgresql": "ci_collation",
                             "sqlite": "NOCASE",
                         },
                         help_text="Content of a given tag, occupying the 'value' part of the key:value pair.",
@@ -90,6 +92,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         db_collations={
                             "mysql": "utf8mb4_unicode_ci",
+                            "postgresql": "ci_collation",
                             "sqlite": "NOCASE",
                         },
                         help_text="Used to link an Open edX Tag with a tag in an externally-defined taxonomy.",
@@ -129,6 +132,7 @@ class Migration(migrations.Migration):
                     openedx_django_lib.fields.MultiCollationCharField(
                         db_collations={
                             "mysql": "utf8mb4_unicode_ci",
+                            "postgresql": "ci_collation",
                             "sqlite": "NOCASE",
                         },
                         help_text="Identifier for the object being tagged",
@@ -140,6 +144,7 @@ class Migration(migrations.Migration):
                     openedx_django_lib.fields.MultiCollationCharField(
                         db_collations={
                             "mysql": "utf8mb4_unicode_ci",
+                            "postgresql": "ci_collation",
                             "sqlite": "NOCASE",
                         },
                         help_text="Type of object being tagged",
@@ -151,6 +156,7 @@ class Migration(migrations.Migration):
                     openedx_django_lib.fields.MultiCollationCharField(
                         db_collations={
                             "mysql": "utf8mb4_unicode_ci",
+                            "postgresql": "ci_collation",
                             "sqlite": "NOCASE",
                         },
                         help_text="User-facing label used for this tag, stored in case taxonomy is (or becomes) null. If the taxonomy field is set, then taxonomy.name takes precedence over this field.",
@@ -162,6 +168,7 @@ class Migration(migrations.Migration):
                     openedx_django_lib.fields.MultiCollationCharField(
                         db_collations={
                             "mysql": "utf8mb4_unicode_ci",
+                            "postgresql": "ci_collation",
                             "sqlite": "NOCASE",
                         },
                         help_text="User-facing value used for this tag, stored in case tag is null, e.g if taxonomy is free text, or if it becomes null (e.g. if the Tag is deleted). If the tag field is set, then tag.value takes precedence over this field.",

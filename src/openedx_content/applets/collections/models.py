@@ -130,8 +130,9 @@ class Collection(models.Model):
             "Provides extra information for the user about this collection."
         ),
         db_collations={
-            "sqlite": "NOCASE",
             "mysql": "utf8mb4_unicode_ci",
+            "postgresql": "ci_collation",
+            "sqlite": "NOCASE",
         }
     )
 

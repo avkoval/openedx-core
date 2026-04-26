@@ -66,6 +66,10 @@ def case_insensitive_char_field(**kwargs) -> MultiCollationCharField:
             # utf8mb4_0900_ai_ci based on Unicode 9, while MariaDB has
             # uca1400_ai_ci based on Unicode 14.
             "mysql": "utf8mb4_unicode_ci",
+            # Custom ICU collation, see openedx_django_lib migration that
+            # creates it. Non-deterministic level-2 strength: case- and
+            # width-insensitive, but accent-sensitive.
+            "postgresql": "ci_collation",
         },
     }
     # Override our defaults with whatever is passed in.
@@ -92,6 +96,14 @@ def case_sensitive_char_field(**kwargs) -> MultiCollationCharField:
         "db_collations": {
             "sqlite": "BINARY",
             "mysql": "utf8mb4_bin",
+            # Custom libc collation, see openedx_django_lib migration that
+            # creates it. Locale "C.utf8": byte-order sort and equality
+            # (matching utf8mb4_bin), but UTF-8-aware ctype so regex
+            # character classes such as \w accept non-ASCII code points.
+            # The plain built-in "C" collation is byte-order too but
+            # ASCII-only for \w, which breaks code_field_check on
+            # Unicode codes.
+            "postgresql": "cs_collation",
         },
     }
     # Override our defaults with whatever is passed in.

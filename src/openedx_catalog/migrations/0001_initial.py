@@ -16,6 +16,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("organizations", "0004_auto_20230727_2054"),
+        ("openedx_django_lib", "0001_create_pg_collation"),
     ]
 
     operations = [
@@ -35,7 +36,7 @@ class Migration(migrations.Migration):
                 (
                     "course_code",
                     openedx_django_lib.fields.MultiCollationCharField(
-                        db_collations={"mysql": "utf8mb4_bin", "sqlite": "BINARY"},
+                        db_collations={"mysql": "utf8mb4_bin", "postgresql": "cs_collation", "sqlite": "BINARY"},
                         help_text='The course code/number, e.g. "Math100".',
                         max_length=255,
                     ),
@@ -49,7 +50,7 @@ class Migration(migrations.Migration):
                 (
                     "title",
                     openedx_django_lib.fields.MultiCollationCharField(
-                        db_collations={"mysql": "utf8mb4_unicode_ci", "sqlite": "NOCASE"},
+                        db_collations={"mysql": "utf8mb4_unicode_ci", "postgresql": "ci_collation", "sqlite": "NOCASE"},
                         help_text='The full title (display name) of this catalog course. e.g. "Introduction to Calculus". Individual course runs may override this, e.g. "Intro to Calc (Fall 2026 with Dr. Newton)".',
                         max_length=255,
                     ),
@@ -57,7 +58,7 @@ class Migration(migrations.Migration):
                 (
                     "language",
                     openedx_django_lib.fields.MultiCollationCharField(
-                        db_collations={"mysql": "utf8mb4_bin", "sqlite": "BINARY"},
+                        db_collations={"mysql": "utf8mb4_bin", "postgresql": "cs_collation", "sqlite": "BINARY"},
                         default=openedx_catalog.models.catalog_course.get_default_language_code,
                         help_text='The code representing the primary language of this catalog course\'s content - the language in which the content is authored and which learners can learn without translation. (Translated versions of the course or parts of the course may be available in other languages if supported by the platform.) The first two digits must be the lowercase ISO 639-1 language code, optionally followed by a country/locale code. e.g. "en", "es", "fr-ca", "pt-br", "zh-cn", "zh-hk". ',
                         max_length=64,
@@ -101,7 +102,7 @@ class Migration(migrations.Migration):
                 (
                     "run_code",
                     openedx_django_lib.fields.MultiCollationCharField(
-                        db_collations={"mysql": "utf8mb4_bin", "sqlite": "BINARY"},
+                        db_collations={"mysql": "utf8mb4_bin", "postgresql": "cs_collation", "sqlite": "BINARY"},
                         help_text='The code that identifies this particular run of the course, e.g. "2026", "2026Fall" or "2T2026"',
                         max_length=128,
                     ),
@@ -116,7 +117,7 @@ class Migration(migrations.Migration):
                     "title",
                     openedx_django_lib.fields.MultiCollationCharField(
                         blank=True,
-                        db_collations={"mysql": "utf8mb4_unicode_ci", "sqlite": "NOCASE"},
+                        db_collations={"mysql": "utf8mb4_unicode_ci", "postgresql": "ci_collation", "sqlite": "NOCASE"},
                         help_text='The full title (display name) of this course. e.g. "Introduction to Calculus". This is required and will override the title of the catalog course. Leave blank to use the same title as the catalog course. ',
                         max_length=255,
                     ),

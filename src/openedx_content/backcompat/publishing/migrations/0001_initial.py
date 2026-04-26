@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ("openedx_django_lib", "0001_create_pg_collation"),
     ]
 
     operations = [
@@ -25,9 +26,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, unique=True, verbose_name='UUID')),
-                ('key', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'}, max_length=500)),
-                ('title', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_unicode_ci', 'sqlite': 'NOCASE'}, max_length=500)),
-                ('description', openedx_django_lib.fields.MultiCollationTextField(blank=True, db_collations={'mysql': 'utf8mb4_unicode_ci', 'sqlite': 'NOCASE'}, default='', max_length=10000)),
+                ('key', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'}, max_length=500)),
+                ('title', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_unicode_ci', 'postgresql': 'ci_collation', 'sqlite': 'NOCASE'}, max_length=500)),
+                ('description', openedx_django_lib.fields.MultiCollationTextField(blank=True, db_collations={'mysql': 'utf8mb4_unicode_ci', 'postgresql': 'ci_collation', 'sqlite': 'NOCASE'}, default='', max_length=10000)),
                 ('created', models.DateTimeField(validators=[openedx_django_lib.validators.validate_utc_datetime])),
                 ('updated', models.DateTimeField(validators=[openedx_django_lib.validators.validate_utc_datetime])),
             ],
@@ -41,7 +42,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, unique=True, verbose_name='UUID')),
-                ('key', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'sqlite': 'BINARY'}, max_length=500)),
+                ('key', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_bin', 'postgresql': 'cs_collation', 'sqlite': 'BINARY'}, max_length=500)),
                 ('created', models.DateTimeField(validators=[openedx_django_lib.validators.validate_utc_datetime])),
                 ('created_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
                 ('learning_package', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='publishable_entities', to='oel_publishing.learningpackage')),
@@ -56,7 +57,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, unique=True, verbose_name='UUID')),
-                ('title', openedx_django_lib.fields.MultiCollationCharField(blank=True, db_collations={'mysql': 'utf8mb4_unicode_ci', 'sqlite': 'NOCASE'}, default='', max_length=500)),
+                ('title', openedx_django_lib.fields.MultiCollationCharField(blank=True, db_collations={'mysql': 'utf8mb4_unicode_ci', 'postgresql': 'ci_collation', 'sqlite': 'NOCASE'}, default='', max_length=500)),
                 ('version_num', models.PositiveIntegerField(validators=[django.core.validators.MinValueValidator(1)])),
                 ('created', models.DateTimeField(validators=[openedx_django_lib.validators.validate_utc_datetime])),
                 ('created_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
@@ -72,7 +73,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, unique=True, verbose_name='UUID')),
-                ('message', openedx_django_lib.fields.MultiCollationCharField(blank=True, db_collations={'mysql': 'utf8mb4_unicode_ci', 'sqlite': 'NOCASE'}, default='', max_length=500)),
+                ('message', openedx_django_lib.fields.MultiCollationCharField(blank=True, db_collations={'mysql': 'utf8mb4_unicode_ci', 'postgresql': 'ci_collation', 'sqlite': 'NOCASE'}, default='', max_length=500)),
                 ('published_at', models.DateTimeField(validators=[openedx_django_lib.validators.validate_utc_datetime])),
                 ('learning_package', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='oel_publishing.learningpackage')),
                 ('published_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),

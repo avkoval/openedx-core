@@ -14,6 +14,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('oel_publishing', '0001_initial'),
+        ("openedx_django_lib", "0001_create_pg_collation"),
     ]
 
     operations = [
@@ -24,7 +25,7 @@ class Migration(migrations.Migration):
                 ('size', models.PositiveBigIntegerField(validators=[django.core.validators.MaxValueValidator(50000000)])),
                 ('hash_digest', models.CharField(editable=False, max_length=40)),
                 ('has_file', models.BooleanField()),
-                ('text', openedx_django_lib.fields.MultiCollationTextField(blank=True, db_collations={'mysql': 'utf8mb4_unicode_ci', 'sqlite': 'NOCASE'}, max_length=50000, null=True)),
+                ('text', openedx_django_lib.fields.MultiCollationTextField(blank=True, db_collations={'mysql': 'utf8mb4_unicode_ci', 'postgresql': 'ci_collation', 'sqlite': 'NOCASE'}, max_length=50000, null=True)),
                 ('created', models.DateTimeField(validators=[openedx_django_lib.validators.validate_utc_datetime])),
             ],
             options={
@@ -36,9 +37,9 @@ class Migration(migrations.Migration):
             name='MediaType',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('type', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_unicode_ci', 'sqlite': 'NOCASE'}, max_length=127)),
-                ('sub_type', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_unicode_ci', 'sqlite': 'NOCASE'}, max_length=127)),
-                ('suffix', openedx_django_lib.fields.MultiCollationCharField(blank=True, db_collations={'mysql': 'utf8mb4_unicode_ci', 'sqlite': 'NOCASE'}, max_length=127)),
+                ('type', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_unicode_ci', 'postgresql': 'ci_collation', 'sqlite': 'NOCASE'}, max_length=127)),
+                ('sub_type', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_unicode_ci', 'postgresql': 'ci_collation', 'sqlite': 'NOCASE'}, max_length=127)),
+                ('suffix', openedx_django_lib.fields.MultiCollationCharField(blank=True, db_collations={'mysql': 'utf8mb4_unicode_ci', 'postgresql': 'ci_collation', 'sqlite': 'NOCASE'}, max_length=127)),
             ],
         ),
         migrations.AddConstraint(

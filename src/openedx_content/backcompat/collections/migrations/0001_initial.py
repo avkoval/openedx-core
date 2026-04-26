@@ -12,6 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('oel_publishing', '0002_alter_learningpackage_key_and_more'),
+        ("openedx_django_lib", "0001_create_pg_collation"),
     ]
 
     operations = [
@@ -19,8 +20,8 @@ class Migration(migrations.Migration):
             name='Collection',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_unicode_ci', 'sqlite': 'NOCASE'}, db_index=True, help_text='The name of the collection.', max_length=255)),
-                ('description', openedx_django_lib.fields.MultiCollationCharField(blank=True, db_collations={'mysql': 'utf8mb4_unicode_ci', 'sqlite': 'NOCASE'}, help_text='Provides extra information for the user about this collection.', max_length=10000)),
+                ('name', openedx_django_lib.fields.MultiCollationCharField(db_collations={'mysql': 'utf8mb4_unicode_ci', 'postgresql': 'ci_collation', 'sqlite': 'NOCASE'}, db_index=True, help_text='The name of the collection.', max_length=255)),
+                ('description', openedx_django_lib.fields.MultiCollationCharField(blank=True, db_collations={'mysql': 'utf8mb4_unicode_ci', 'postgresql': 'ci_collation', 'sqlite': 'NOCASE'}, help_text='Provides extra information for the user about this collection.', max_length=10000)),
                 ('enabled', models.BooleanField(default=True, help_text='Whether the collection is enabled or not.')),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),

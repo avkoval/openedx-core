@@ -63,8 +63,9 @@ class LearningPackage(models.Model):
         # want to do case-insensitive searches, so it's useful to have a case
         # and accent insensitive collation.
         db_collations={
-            "sqlite": "NOCASE",
             "mysql": "utf8mb4_unicode_ci",
+            "postgresql": "ci_collation",
+            "sqlite": "NOCASE",
         }
     )
 

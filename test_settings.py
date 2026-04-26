@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     # django-rules based authorization
     'rules.apps.AutodiscoverRulesConfig',
     # Our own apps
+    "openedx_django_lib",
     "openedx_tagging",
     "openedx_content",
     "openedx_catalog",
