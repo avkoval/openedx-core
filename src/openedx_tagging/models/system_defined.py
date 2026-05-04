@@ -4,7 +4,7 @@ Tagging app system-defined taxonomies data models
 from __future__ import annotations
 
 import logging
-from typing import override
+from typing_extensions import override
 
 from django.conf import settings
 from django.contrib.auth import get_user_model

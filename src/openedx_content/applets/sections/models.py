@@ -2,7 +2,9 @@
 Models that implement sections
 """
 
-from typing import NewType, cast, override
+from typing import NewType, cast
+
+from typing_extensions import override
 
 from django.core.exceptions import ValidationError
 from django.db import models
