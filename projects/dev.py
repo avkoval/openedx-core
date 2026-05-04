@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "organizations",
 
     # Our Apps
+    "openedx_django_lib",
     "openedx_catalog",
     "openedx_tagging",
     "openedx_content",
@@ -109,9 +110,12 @@ USE_TZ = True
 
 # openedx-core required configuration
 OPENEDX_LEARNING = {
-    # Custom file storage, though this is better done through Django's
-    # STORAGES setting in Django >= 4.2
-    "STORAGE": None,
+    'MEDIA': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        'OPTIONS': {
+            'location': str(BASE_DIR / "media_private"),
+        },
+    },
 }
 INTERNAL_IPS = [
     "127.0.0.1",
