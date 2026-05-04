@@ -65,6 +65,12 @@ requirements/private.txt
 # database file
 dev.db*
 
+# direnv local config
+.envrc
+
+# Local file-storage backend for OPENEDX_LEARNING['MEDIA'] in dev
+/media_private/
+
 # virtualenv
 venv/
 .venv/
